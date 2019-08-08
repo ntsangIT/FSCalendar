@@ -469,6 +469,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDate *selectedDate = [self.calculator dateForIndexPath:indexPath];
+    if ([self isOutDate:selectedDate outDateTo:_appearance.outDateTo outDateFrom:_appearance.outDateFrom]) return;
     FSCalendarMonthPosition monthPosition = [self.calculator monthPositionForIndexPath:indexPath];
     FSCalendarCell *cell;
     if (monthPosition == FSCalendarMonthPositionCurrent) {
@@ -542,6 +543,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (!self.window) return;
+    
     if (self.floatingMode && _collectionView.indexPathsForVisibleItems.count) {
         // Do nothing on bouncing
         if (_collectionView.contentOffset.y < 0 || _collectionView.contentOffset.y > _collectionView.contentSize.height-_collectionView.fs_height) {
@@ -1386,7 +1388,17 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     cell.selected = [_selectedDates containsObject:date];
     cell.dateIsToday = self.today?[self.gregorian isDate:date inSameDayAsDate:self.today]:NO;
     cell.weekend = [self.gregorian isDateInWeekend:date];
+    cell.isSunday = [self isSunday:[self.gregorian
+                                    component:NSCalendarUnitWeekday
+                                    fromDate:date]];
+    cell.isSaturday = [self isSaturday:[self.gregorian
+                                        component:NSCalendarUnitWeekday
+                                        fromDate:date]] ;
+    cell.isOutDate = [self isOutDate:date
+                           outDateTo:cell.calendar.appearance.outDateTo
+                         outDateFrom:cell.calendar.appearance.outDateFrom];
     cell.monthPosition = [self.calculator monthPositionForIndexPath:indexPath];
+    
     switch (self.transitionCoordinator.representingScope) {
         case FSCalendarScopeMonth: {
             cell.placeholder = (cell.monthPosition == FSCalendarMonthPositionPrevious || cell.monthPosition == FSCalendarMonthPositionNext) || ![self isDateInRange:date];
@@ -1411,6 +1423,23 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     [cell configureAppearance];
 }
 
+-(BOOL) isSunday:(NSInteger) weekdayIndex {
+    return (weekdayIndex % 7 == 1);
+}
+
+-(BOOL) isSaturday:(NSInteger) weekdayIndex {
+    return (weekdayIndex % 7 == 0);
+}
+
+-(BOOL) isOutDate:(NSDate *)date outDateTo:(NSDate *)outDateTo outDateFrom:(NSDate*)outDateFrom {
+    if (outDateTo && ([date timeIntervalSinceDate:outDateTo] < 0)) {
+        return YES;
+    }
+    if (outDateFrom && ([date timeIntervalSinceDate:outDateFrom] > 0)) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)handleSwipeToChoose:(UILongPressGestureRecognizer *)pressGesture
 {
@@ -1541,8 +1570,8 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         NSAssert([self.gregorian compareDate:newMin toDate:newMax toUnitGranularity:NSCalendarUnitDay] != NSOrderedDescending, @"The minimum date of calendar should be earlier than the maximum.");
         
         BOOL res = ![self.gregorian isDate:newMin inSameDayAsDate:_minimumDate] || ![self.gregorian isDate:newMax inSameDayAsDate:_maximumDate];
-        _minimumDate = newMin;
-        _maximumDate = newMax;
+        _minimumDate = self.appearance.outDateTo ?: newMin;
+        _maximumDate = self.appearance.outDateFrom ?: newMax;
         [self.calculator reloadSections];
         
         return res;

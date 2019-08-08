@@ -19,7 +19,9 @@ typedef NS_ENUM(NSInteger, FSCalendarCellState) {
     FSCalendarCellStateDisabled    = 1 << 2,
     FSCalendarCellStateToday       = 1 << 3,
     FSCalendarCellStateWeekend     = 1 << 4,
-    FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected
+    FSCalendarCellStateTodaySelected = FSCalendarCellStateToday|FSCalendarCellStateSelected,
+    FSCalendarCellStateStaturday   = 1001,
+    FSCalendarCellStateSunday      = 1002
 };
 
 typedef NS_ENUM(NSUInteger, FSCalendarSeparators) {
@@ -98,6 +100,16 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  */
 @property (strong, nonatomic) UIColor  *weekdayTextColor;
 
+@property (strong, nonatomic) UIColor  *sundayTextColor;
+
+@property (strong, nonatomic) UIColor  *saturdayTextColor;
+
+@property (strong, nonatomic) UIColor  *weekdayHeaderBackgroundColor;
+
+@property (strong, nonatomic) NSDate  *outDateTo;
+
+@property (strong, nonatomic) NSDate  *outDateFrom;
+
 /**
  * The color of month header text.
  */
@@ -132,6 +144,10 @@ typedef NS_OPTIONS(NSUInteger, FSCalendarCaseOptions) {
  * The day text color for days out of current month.
  */
 @property (strong, nonatomic) UIColor  *titlePlaceholderColor;
+
+@property (strong, nonatomic) UIColor  *titleSundayColor;
+
+@property (strong, nonatomic) UIColor  *titleSaturdayColor;
 
 /**
  * The day text color for weekend.

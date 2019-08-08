@@ -263,11 +263,17 @@
     if (self.dateIsToday && [[dictionary allKeys] containsObject:@(FSCalendarCellStateToday)]) {
         return dictionary[@(FSCalendarCellStateToday)];
     }
-    if (self.placeholder && [[dictionary allKeys] containsObject:@(FSCalendarCellStatePlaceholder)]) {
+    if ((self.placeholder && [[dictionary allKeys] containsObject:@(FSCalendarCellStatePlaceholder)]) || self.isOutDate) {
         return dictionary[@(FSCalendarCellStatePlaceholder)];
     }
     if (self.weekend && [[dictionary allKeys] containsObject:@(FSCalendarCellStateWeekend)]) {
         return dictionary[@(FSCalendarCellStateWeekend)];
+    }
+    if (self.isSunday && [[dictionary allKeys] containsObject:@(FSCalendarCellStateSunday)]) {
+        return dictionary[@(FSCalendarCellStateSunday)];
+    }
+    if (self.isSaturday && [[dictionary allKeys] containsObject:@(FSCalendarCellStateStaturday)]) {
+        return dictionary[@(FSCalendarCellStateStaturday)];
     }
     return dictionary[@(FSCalendarCellStateNormal)];
 }
@@ -287,6 +293,7 @@
     if (self.selected) {
         return self.preferredTitleSelectionColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
     }
+    
     return self.preferredTitleDefaultColor ?: [self colorForCurrentStateInDictionary:_appearance.titleColors];
 }
 

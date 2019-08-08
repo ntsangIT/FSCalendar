@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="hdH-lJ-MgD" customClass="CalendarVC">
+            <view key="view" contentMode="scaleToFill" id="cOj-hm-SjH">
+                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pee-RI-s9z" customClass="FSCalendar">
+                        <rect key="frame" x="256" y="192" width="512" height="384"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="pee-RI-s9z" firstAttribute="centerX" secondItem="cOj-hm-SjH" secondAttribute="centerX" id="0Mj-ec-J4H"/>
+                    <constraint firstItem="pee-RI-s9z" firstAttribute="width" secondItem="cOj-hm-SjH" secondAttribute="width" multiplier="1/2" id="6PH-2C-ylN"/>
+                    <constraint firstItem="pee-RI-s9z" firstAttribute="centerY" secondItem="cOj-hm-SjH" secondAttribute="centerY" id="NsI-sI-fjg"/>
+                    <constraint firstItem="pee-RI-s9z" firstAttribute="height" secondItem="cOj-hm-SjH" secondAttribute="height" multiplier="1/2" id="fD7-Qp-zed"/>
+                </constraints>
+                <viewLayoutGuide key="safeArea" id="hPS-CS-9uU"/>
+            </view>
+            <connections>
+                <outlet property="calendar" destination="pee-RI-s9z" id="LIm-nW-b6f"/>
+            </connections>
+            <point key="canvasLocation" x="443" y="-61"/>
+        </viewController>
+    </objects>
+</document>

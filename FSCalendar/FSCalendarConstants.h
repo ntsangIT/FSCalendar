@@ -43,10 +43,12 @@ CG_EXTERN CGSize const CGSizeAutomatic;
 #define FSCalendarDeviceIsIPad [[UIDevice currentDevice].model hasPrefix:@"iPad"]
 #endif
 
-#define FSCalendarStandardSelectionColor   FSColorRGBA(31,119,219,1.0)
-#define FSCalendarStandardTodayColor       FSColorRGBA(198,51,42 ,1.0)
-#define FSCalendarStandardTitleTextColor   FSColorRGBA(14,69,221 ,1.0)
-#define FSCalendarStandardEventDotColor    FSColorRGBA(31,119,219,0.75)
+#define FSCalendarStandardSelectionColor            FSColorRGBA(31,119,219,1.0)
+#define FSCalendarStandardTodayColor                FSColorRGBA(198,51,42 ,1.0)
+#define FSCalendarStandardTitleTextColor            FSColorRGBA(14,69,221 ,1.0)
+#define FSCalendarStandardEventDotColor             FSColorRGBA(31,119,219,0.75)
+#define FSCalendarStandardHeaderTitleWeekdayColor   FSColorRGBA(76,110,172,1.0)
+#define FSCalendarStandardHeaderDateFormat          @"yyyy年MM月"
 
 #define FSCalendarStandardLineColor        [[UIColor lightGrayColor] colorWithAlphaComponent:0.30]
 #define FSCalendarStandardSeparatorColor   [[UIColor lightGrayColor] colorWithAlphaComponent:0.60]
@@ -66,6 +68,12 @@ CG_EXTERN CGSize const CGSizeAutomatic;
 #define FSCalendarUseWeakSelf __weak __typeof__(self) FSCalendarWeakSelf = self;
 #define FSCalendarUseStrongSelf __strong __typeof__(self) self = FSCalendarWeakSelf;
 
+
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
 
 #pragma mark - Deprecated
 

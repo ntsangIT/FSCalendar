@@ -203,6 +203,48 @@
     return _titleColors[@(FSCalendarCellStatePlaceholder)];
 }
 
+- (UIColor *)titleSundayColor
+{
+    return _titleColors[@(FSCalendarCellStateSunday)];
+}
+
+- (void)setTitleSundayColor:(UIColor *)color
+{
+    if (color) {
+        _titleColors[@(FSCalendarCellStateSunday)] = color;
+    } else {
+        [_titleColors removeObjectForKey:@(FSCalendarCellStateSunday)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (UIColor *)titleSaturdayColor
+{
+    return _titleColors[@(FSCalendarCellStateStaturday)];
+}
+
+- (void)setTitleSaturdayColor:(UIColor *)color
+{
+    if (color) {
+        _titleColors[@(FSCalendarCellStateStaturday)] = color;
+    } else {
+        [_titleColors removeObjectForKey:@(FSCalendarCellStateStaturday)];
+    }
+    [self.calendar configureAppearance];
+}
+
+- (void)setOutDateTo:(NSDate *)date
+{
+    _outDateTo = date;
+    [self.calendar configureAppearance];
+}
+
+- (void)setOutDateFrom:(NSDate *)date
+{
+    _outDateFrom = date;
+    [self.calendar configureAppearance];
+}
+
 - (void)setTitleWeekendColor:(UIColor *)color
 {
     if (color) {
